@@ -8,270 +8,370 @@
 </head>
 <body>
 
-  <!-- SIDEBAR NAV -->
-  <aside class="sidebar">
-    <div class="sidebar-logo">
-      <span class="logo-icon">&#x1F916;</span>
-      <span class="logo-text">AI Sales Coach</span>
+<aside class="sidebar">
+  <div class="sidebar-logo">
+    <span class="logo-icon">🤖</span>
+    <span class="logo-text">AI Sales Coach</span>
+  </div>
+  <nav class="sidebar-nav">
+    <a href="#" class="nav-item active" data-tab="dashboard"><span class="nav-icon">📊</span> Dashboard</a>
+    <a href="#" class="nav-item" data-tab="scripts"><span class="nav-icon">📋</span> Scripts de Vendas</a>
+    <a href="#" class="nav-item" data-tab="calls"><span class="nav-icon">🎧</span> Calls de Sucesso</a>
+    <a href="#" class="nav-item" data-tab="analyze"><span class="nav-icon">🔍</span> Analisar Transcricao</a>
+    <a href="#" class="nav-item" data-tab="knowledge"><span class="nav-icon">🧠</span> Base de Conhecimento</a>
+    <a href="#" class="nav-item" data-tab="settings"><span class="nav-icon">⚙️</span> Configuracoes</a>
+  </nav>
+  <div class="sidebar-status" id="server-status">
+    <span class="status-dot status-dot--offline"></span>
+    <span>Backend offline</span>
+  </div>
+</aside>
+
+<main class="main">
+  <header class="top-bar">
+    <h1 class="page-title" id="page-title">Dashboard</h1>
+    <div class="top-bar-actions">
+      <button class="btn btn-outline" id="refresh-btn">↻ Atualizar</button>
     </div>
-    <nav class="sidebar-nav">
-      <a href="#" class="nav-item active" data-tab="dashboard">
-        <span class="nav-icon">&#x1F4CA;</span> Dashboard
-      </a>
-      <a href="#" class="nav-item" data-tab="scripts">
-        <span class="nav-icon">&#x1F4CB;</span> Scripts de Vendas
-      </a>
-      <a href="#" class="nav-item" data-tab="calls">
-        <span class="nav-icon">&#x1F3A7;</span> Calls de Sucesso
-      </a>
-      <a href="#" class="nav-item" data-tab="knowledge">
-        <span class="nav-icon">&#x1F9E0;</span> Base de Conhecimento
-      </a>
-      <a href="#" class="nav-item" data-tab="settings">
-        <span class="nav-icon">&#x2699;&#xFE0F;</span> Configuracoes
-      </a>
-    </nav>
-    <div class="sidebar-status" id="server-status">
-      <span class="status-dot status-dot--offline"></span>
-      <span>Backend offline</span>
+  </header>
+
+  <!-- DASHBOARD -->
+  <section class="tab-content active" id="tab-dashboard">
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-icon">📋</div>
+        <div class="stat-info">
+          <div class="stat-value" id="stat-scripts">0</div>
+          <div class="stat-label">Scripts Carregados</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">🎧</div>
+        <div class="stat-info">
+          <div class="stat-value" id="stat-calls">0</div>
+          <div class="stat-label">Calls de Sucesso</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">🧠</div>
+        <div class="stat-info">
+          <div class="stat-value" id="stat-knowledge">-</div>
+          <div class="stat-label">Base de Conhecimento</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">📡</div>
+        <div class="stat-info">
+          <div class="stat-value" id="stat-sessions">0</div>
+          <div class="stat-label">Sessoes Ativas</div>
+        </div>
+      </div>
     </div>
-  </aside>
 
-  <!-- MAIN CONTENT -->
-  <main class="main">
-
-    <!-- HEADER -->
-    <header class="top-bar">
-      <h1 class="page-title" id="page-title">Dashboard</h1>
-      <div class="top-bar-actions">
-        <button class="btn btn-outline" id="refresh-btn">&#x21BB; Atualizar</button>
+    <div class="card">
+      <div class="card-header">
+        <h2>🧠 Resumo do Conhecimento Atual</h2>
+        <button class="btn btn-sm btn-primary" id="rebuild-btn">🔄 Reprocessar</button>
       </div>
-    </header>
-
-    <!-- TAB: DASHBOARD -->
-    <section class="tab-content active" id="tab-dashboard">
-      <div class="stats-grid">
-        <div class="stat-card">
-          <div class="stat-icon">&#x1F4CB;</div>
-          <div class="stat-info">
-            <div class="stat-value" id="stat-scripts">0</div>
-            <div class="stat-label">Scripts Carregados</div>
-          </div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-icon">&#x1F3A7;</div>
-          <div class="stat-info">
-            <div class="stat-value" id="stat-calls">0</div>
-            <div class="stat-label">Calls de Sucesso</div>
-          </div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-icon">&#x1F9E0;</div>
-          <div class="stat-info">
-            <div class="stat-value" id="stat-knowledge">-</div>
-            <div class="stat-label">Base de Conhecimento</div>
-          </div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-icon">&#x1F4F6;</div>
-          <div class="stat-info">
-            <div class="stat-value" id="stat-sessions">0</div>
-            <div class="stat-label">Sessoes Ativas</div>
-          </div>
+      <div class="card-body">
+        <div class="knowledge-summary" id="knowledge-summary">
+          Nenhum conhecimento carregado. Adicione scripts e calls para comecar.
         </div>
       </div>
+    </div>
 
-      <div class="card">
-        <div class="card-header">
-          <h2>&#x1F9E0; Resumo do Conhecimento Atual</h2>
-          <button class="btn btn-sm btn-primary" id="rebuild-btn">&#x1F504; Reprocessar</button>
-        </div>
-        <div class="card-body">
-          <div class="knowledge-summary" id="knowledge-summary">
-            Nenhum conhecimento carregado ainda. Adicione scripts de vendas e calls de sucesso para comecar.
-          </div>
+    <div class="card">
+      <div class="card-header"><h2>🚀 Como Comecar</h2></div>
+      <div class="card-body">
+        <div class="steps">
+          <div class="step"><div class="step-num">1</div><div class="step-text"><strong>Scripts de Vendas</strong> — adicione seus roteiros, playbooks e metodologias</div></div>
+          <div class="step"><div class="step-num">2</div><div class="step-text"><strong>Calls de Sucesso</strong> — adicione transcricoes de calls que geraram fechamentos</div></div>
+          <div class="step"><div class="step-num">3</div><div class="step-text"><strong>A IA Aprende</strong> — o sistema processa e cria a base de conhecimento automaticamente</div></div>
+          <div class="step"><div class="step-num">4</div><div class="step-text"><strong>Use no Google Meet</strong> — a extensao sugere acoes em tempo real durante a call</div></div>
         </div>
       </div>
+    </div>
+  </section>
 
-      <div class="card">
-        <div class="card-header"><h2>&#x1F680; Como Comecar</h2></div>
-        <div class="card-body">
-          <div class="steps">
-            <div class="step">
-              <div class="step-num">1</div>
-              <div class="step-text">
-                <strong>Adicione scripts de vendas</strong> — seus roteiros, playbooks e metodologias de vendas
-              </div>
-            </div>
-            <div class="step">
-              <div class="step-num">2</div>
-              <div class="step-text">
-                <strong>Adicione calls de sucesso</strong> — gravacoes ou transcricoes de calls que geraram vendas
-              </div>
-            </div>
-            <div class="step">
-              <div class="step-num">3</div>
-              <div class="step-text">
-                <strong>A IA aprende</strong> — o sistema processa o material e cria uma base de conhecimento
-              </div>
-            </div>
-            <div class="step">
-              <div class="step-num">4</div>
-              <div class="step-text">
-                <strong>Use no Google Meet</strong> — abra uma reuniao e a extensao sugerira acoes em tempo real
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- TAB: SCRIPTS -->
-    <section class="tab-content" id="tab-scripts">
-      <div class="card">
-        <div class="card-header">
-          <h2>&#x2795; Adicionar Script de Vendas</h2>
-        </div>
-        <div class="card-body">
-          <form id="script-form" class="upload-form">
+  <!-- SCRIPTS -->
+  <section class="tab-content" id="tab-scripts">
+    <div class="card">
+      <div class="card-header"><h2>➕ Adicionar Script de Vendas</h2></div>
+      <div class="card-body">
+        <form id="script-form" class="upload-form">
+          <div class="form-row">
             <div class="form-group">
               <label>Titulo do Script *</label>
-              <input type="text" id="script-title" placeholder="Ex: Script SPIN Selling Q1 2026" required/>
+              <input type="text" id="script-title" placeholder="Ex: Playbook SPIN Selling 2026" required/>
             </div>
             <div class="form-group">
               <label>Descricao</label>
-              <input type="text" id="script-desc" placeholder="Ex: Metodologia SPIN para enterprise"/>
+              <input type="text" id="script-desc" placeholder="Ex: Metodologia para enterprise"/>
             </div>
+          </div>
+
+          <div class="input-toggle">
+            <button type="button" class="toggle-btn active" data-mode="text" id="script-toggle-text">✏️ Digitar / Colar Texto</button>
+            <button type="button" class="toggle-btn" data-mode="file" id="script-toggle-file">📁 Carregar Arquivo</button>
+          </div>
+
+          <div id="script-input-text" class="input-mode active">
             <div class="form-group">
               <label>Conteudo do Script *</label>
-              <textarea id="script-content" rows="10" placeholder="Cole aqui o conteudo do seu script de vendas, playbook, objecoes comuns, respostas ideais, etc..." required></textarea>
+              <textarea id="script-content" rows="12" placeholder="Cole aqui o conteudo do seu script, playbook, objecoes comuns, respostas ideais, metodologia de vendas..."></textarea>
             </div>
+          </div>
+
+          <div id="script-input-file" class="input-mode">
             <div class="form-group">
-              <label>Ou carregue um arquivo (TXT)</label>
+              <label>Arquivo do Script (TXT, MD)</label>
               <div class="file-drop" id="script-file-drop">
-                <span>&#x1F4C4; Arraste um arquivo .txt ou clique para selecionar</span>
+                <div class="file-drop-icon">📄</div>
+                <div class="file-drop-text">Arraste um arquivo .txt ou .md aqui</div>
+                <div class="file-drop-sub">ou clique para selecionar</div>
                 <input type="file" id="script-file" accept=".txt,.md" hidden/>
               </div>
+              <div id="script-file-preview" class="file-preview hidden"></div>
             </div>
-            <button type="submit" class="btn btn-primary btn-lg">&#x1F4BE; Salvar Script</button>
-          </form>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="card-header"><h2>&#x1F4CB; Scripts Cadastrados</h2></div>
-        <div class="card-body">
-          <div class="items-list" id="scripts-list">
-            <div class="empty-state">Nenhum script cadastrado ainda.</div>
           </div>
+
+          <button type="submit" class="btn btn-primary btn-lg" id="script-submit-btn">
+            <span class="btn-text">💾 Salvar Script e Treinar IA</span>
+            <span class="btn-loading hidden">⏳ Processando...</span>
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <h2>📋 Scripts Cadastrados</h2>
+        <span class="badge-count" id="scripts-count">0</span>
+      </div>
+      <div class="card-body">
+        <div class="items-list" id="scripts-list">
+          <div class="empty-state">Nenhum script cadastrado ainda.</div>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- TAB: CALLS -->
-    <section class="tab-content" id="tab-calls">
-      <div class="card">
-        <div class="card-header">
-          <h2>&#x2795; Adicionar Call de Sucesso</h2>
-        </div>
-        <div class="card-body">
-          <form id="call-form" class="upload-form">
+  <!-- CALLS -->
+  <section class="tab-content" id="tab-calls">
+    <div class="card">
+      <div class="card-header"><h2>➕ Adicionar Call de Sucesso</h2></div>
+      <div class="card-body">
+        <form id="call-form" class="upload-form">
+          <div class="form-row">
             <div class="form-group">
               <label>Titulo da Call *</label>
-              <input type="text" id="call-title" placeholder="Ex: Fechamento com Empresa XYZ - Jan 2026" required/>
+              <input type="text" id="call-title" placeholder="Ex: Fechamento Empresa XYZ - Jan 2026" required/>
             </div>
             <div class="form-group">
               <label>Resultado</label>
               <select id="call-outcome">
-                <option value="venda">&#x2705; Venda Fechada</option>
-                <option value="follow-up">&#x1F4C5; Follow-up Agendado</option>
-                <option value="perdida">&#x274C; Venda Perdida (aprender com erros)</option>
+                <option value="venda">✅ Venda Fechada</option>
+                <option value="follow-up">📅 Follow-up Agendado</option>
+                <option value="perdida">❌ Venda Perdida (aprender com erros)</option>
               </select>
             </div>
-            <div class="form-group">
-              <label>Notas / Observacoes</label>
-              <input type="text" id="call-notes" placeholder="Ex: Cliente tinha budget aprovado, tomador de decisao presente"/>
-            </div>
+          </div>
+          <div class="form-group">
+            <label>Notas / Observacoes</label>
+            <input type="text" id="call-notes" placeholder="Ex: Budget aprovado, decisor presente, fechou em 1 call"/>
+          </div>
+
+          <div class="input-toggle">
+            <button type="button" class="toggle-btn active" data-mode="text" id="call-toggle-text">✏️ Colar Transcricao</button>
+            <button type="button" class="toggle-btn" data-mode="file" id="call-toggle-file">📁 Carregar Arquivo</button>
+            <button type="button" class="toggle-btn" data-mode="audio" id="call-toggle-audio">🎙️ Arquivo de Audio</button>
+          </div>
+
+          <div id="call-input-text" class="input-mode active">
             <div class="form-group">
               <label>Transcricao da Call *</label>
-              <textarea id="call-content" rows="12" placeholder="Cole aqui a transcricao da call (pode ser do Fireflies, Otter.ai, ou qualquer ferramenta de transcricao)..." required></textarea>
+              <textarea id="call-content" rows="12" placeholder="Cole aqui a transcricao da call (Fireflies, Otter.ai, Google Meet, etc.)&#10;&#10;Exemplo:&#10;Vendedor: Oi Joao, como voce esta?&#10;Cliente: Bem! Precisamos resolver o problema de..."></textarea>
             </div>
+          </div>
+
+          <div id="call-input-file" class="input-mode">
             <div class="form-group">
-              <label>Ou carregue um arquivo de audio (MP3, WAV, M4A) — sera transcrito automaticamente</label>
+              <label>Arquivo de Transcricao (TXT)</label>
               <div class="file-drop" id="call-file-drop">
-                <span>&#x1F3A7; Arraste um arquivo de audio ou .txt</span>
-                <input type="file" id="call-file" accept=".txt,.mp3,.wav,.m4a,.ogg" hidden/>
+                <div class="file-drop-icon">📄</div>
+                <div class="file-drop-text">Arraste um arquivo .txt aqui</div>
+                <div class="file-drop-sub">ou clique para selecionar</div>
+                <input type="file" id="call-file-txt" accept=".txt,.md" hidden/>
               </div>
+              <div id="call-file-preview" class="file-preview hidden"></div>
             </div>
-            <button type="submit" class="btn btn-primary btn-lg">&#x1F4BE; Salvar Call</button>
-          </form>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="card-header"><h2>&#x1F3A7; Calls Cadastradas</h2></div>
-        <div class="card-body">
-          <div class="items-list" id="calls-list">
-            <div class="empty-state">Nenhuma call cadastrada ainda.</div>
           </div>
+
+          <div id="call-input-audio" class="input-mode">
+            <div class="form-group">
+              <label>Arquivo de Audio (sera transcrito automaticamente com Whisper)</label>
+              <div class="file-drop file-drop--audio" id="call-audio-drop">
+                <div class="file-drop-icon">🎙️</div>
+                <div class="file-drop-text">Arraste um arquivo de audio aqui</div>
+                <div class="file-drop-sub">MP3, WAV, M4A, OGG — ate 50MB</div>
+                <input type="file" id="call-file-audio" accept=".mp3,.wav,.m4a,.ogg,.webm" hidden/>
+              </div>
+              <div id="call-audio-preview" class="file-preview hidden"></div>
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-lg" id="call-submit-btn">
+            <span class="btn-text">💾 Salvar Call e Treinar IA</span>
+            <span class="btn-loading hidden">⏳ Processando e transcrevendo...</span>
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <h2>🎧 Calls Cadastradas</h2>
+        <span class="badge-count" id="calls-count">0</span>
+      </div>
+      <div class="card-body">
+        <div class="items-list" id="calls-list">
+          <div class="empty-state">Nenhuma call cadastrada ainda.</div>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- TAB: KNOWLEDGE -->
-    <section class="tab-content" id="tab-knowledge">
-      <div class="card">
-        <div class="card-header">
-          <h2>&#x1F9E0; Base de Conhecimento da IA</h2>
-          <button class="btn btn-sm btn-primary" id="rebuild-btn-2">&#x1F504; Reprocessar Tudo</button>
-        </div>
-        <div class="card-body">
-          <p class="text-muted">Este e o resumo que a IA usa durante as calls ao vivo para gerar sugestoes.</p>
-          <div class="knowledge-summary large" id="knowledge-summary-2">Carregando...</div>
-        </div>
+  <!-- ANALISAR TRANSCRICAO -->
+  <section class="tab-content" id="tab-analyze">
+    <div class="card">
+      <div class="card-header">
+        <h2>🔍 Analisar Transcricao Completa</h2>
       </div>
-    </section>
+      <div class="card-body">
+        <p class="text-muted">Cole uma transcricao completa e a IA ira analisar pontos fortes, erros e probabilidade de fechamento.</p>
 
-    <!-- TAB: SETTINGS -->
-    <section class="tab-content" id="tab-settings">
-      <div class="card">
-        <div class="card-header"><h2>&#x2699;&#xFE0F; Configuracoes do Backend</h2></div>
-        <div class="card-body">
+        <div class="input-toggle">
+          <button type="button" class="toggle-btn active" data-mode="text" id="analyze-toggle-text">✏️ Colar Transcricao</button>
+          <button type="button" class="toggle-btn" data-mode="file" id="analyze-toggle-file">📁 Carregar Arquivo</button>
+        </div>
+
+        <div id="analyze-input-text" class="input-mode active">
           <div class="form-group">
-            <label>URL do Backend</label>
-            <input type="text" id="backend-url" value="http://localhost:3001" placeholder="http://localhost:3001"/>
-            <small class="hint">Endereco do servidor backend. Use ngrok para acesso externo.</small>
+            <label>Transcricao para Analise</label>
+            <textarea id="analyze-content" rows="14" placeholder="Cole aqui a transcricao completa da call que deseja analisar...&#10;&#10;A IA ira identificar:&#10;• Pontos fortes do vendedor&#10;• Oportunidades perdidas&#10;• Probabilidade de fechamento&#10;• Proximo passo recomendado"></textarea>
           </div>
+        </div>
+
+        <div id="analyze-input-file" class="input-mode">
           <div class="form-group">
-            <label>URL do WebSocket</label>
-            <input type="text" id="ws-url" value="ws://localhost:3001" placeholder="ws://localhost:3001"/>
-            <small class="hint">Deve corresponder ao backend URL com ws:// ou wss://</small>
+            <label>Arquivo de Transcricao (TXT)</label>
+            <div class="file-drop" id="analyze-file-drop">
+              <div class="file-drop-icon">📄</div>
+              <div class="file-drop-text">Arraste um arquivo .txt aqui</div>
+              <div class="file-drop-sub">ou clique para selecionar</div>
+              <input type="file" id="analyze-file" accept=".txt,.md" hidden/>
+            </div>
           </div>
-          <button class="btn btn-primary" id="save-settings-btn">&#x1F4BE; Salvar Configuracoes</button>
-          <button class="btn btn-outline" id="test-connection-btn">&#x1F50C; Testar Conexao</button>
-          <div id="connection-result" class="connection-result"></div>
         </div>
-      </div>
 
+        <button class="btn btn-primary btn-lg" id="analyze-btn">
+          <span class="btn-text">🧠 Analisar com IA</span>
+          <span class="btn-loading hidden">⏳ Analisando...</span>
+        </button>
+      </div>
+    </div>
+
+    <div id="analyze-result" class="hidden">
       <div class="card">
-        <div class="card-header"><h2>&#x1F4F1; Extensao Chrome</h2></div>
+        <div class="card-header"><h2>📊 Resultado da Analise</h2></div>
         <div class="card-body">
-          <p>Para conectar a extensao ao backend:</p>
-          <ol class="instructions">
-            <li>Inicie o backend: <code>cd backend && npm install && npm start</code></li>
-            <li>Configure a URL do WebSocket acima</li>
-            <li>Abra o Google Meet — a extensao se conectara automaticamente</li>
-            <li>Clique em "Iniciar Analise" na sidebar</li>
-          </ol>
+          <div class="analysis-grid">
+            <div class="analysis-block">
+              <h3>📝 Resumo da Call</h3>
+              <p id="result-resumo"></p>
+            </div>
+            <div class="analysis-block">
+              <h3>🎯 Estagio Final</h3>
+              <p id="result-momento"></p>
+            </div>
+          </div>
+          <div class="analysis-grid">
+            <div class="analysis-block success-block">
+              <h3>✅ Pontos Fortes</h3>
+              <ul id="result-pontos-fortes"></ul>
+            </div>
+            <div class="analysis-block danger-block">
+              <h3>⚠️ Oportunidades Perdidas</h3>
+              <ul id="result-pontos-melhoria"></ul>
+            </div>
+          </div>
+          <div class="analysis-footer">
+            <div class="prob-card" id="prob-card">
+              <div class="prob-label">Probabilidade de Fechamento</div>
+              <div class="prob-value" id="result-probabilidade"></div>
+            </div>
+            <div class="next-step-card">
+              <div class="next-step-label">📌 Proximo Passo Recomendado</div>
+              <div class="next-step-value" id="result-proximo-passo"></div>
+            </div>
+          </div>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-  </main>
+  <!-- KNOWLEDGE -->
+  <section class="tab-content" id="tab-knowledge">
+    <div class="card">
+      <div class="card-header">
+        <h2>🧠 Base de Conhecimento da IA</h2>
+        <button class="btn btn-sm btn-primary" id="rebuild-btn-2">🔄 Reprocessar Tudo</button>
+      </div>
+      <div class="card-body">
+        <p class="text-muted">Este e o resumo que a IA usa durante as calls ao vivo para gerar insights em tempo real.</p>
+        <div class="knowledge-summary large" id="knowledge-summary-2">Carregando...</div>
+      </div>
+    </div>
+  </section>
 
-  <!-- TOAST NOTIFICATIONS -->
-  <div id="toast-container"></div>
+  <!-- SETTINGS -->
+  <section class="tab-content" id="tab-settings">
+    <div class="card">
+      <div class="card-header"><h2>⚙️ Configuracoes do Backend</h2></div>
+      <div class="card-body">
+        <div class="form-group">
+          <label>URL do Backend</label>
+          <input type="text" id="backend-url" value="http://localhost:3001" placeholder="http://localhost:3001"/>
+          <small class="hint">Use ngrok para acesso externo: https://xxxx.ngrok.io</small>
+        </div>
+        <div class="form-group">
+          <label>URL do WebSocket</label>
+          <input type="text" id="ws-url" value="ws://localhost:3001" placeholder="ws://localhost:3001"/>
+          <small class="hint">Deve ser ws:// ou wss:// correspondendo ao backend</small>
+        </div>
+        <div style="display:flex;gap:12px;flex-wrap:wrap;">
+          <button class="btn btn-primary" id="save-settings-btn">💾 Salvar</button>
+          <button class="btn btn-outline" id="test-connection-btn">🔌 Testar Conexao</button>
+        </div>
+        <div id="connection-result" class="connection-result"></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header"><h2>📱 Extensao Chrome</h2></div>
+      <div class="card-body">
+        <ol class="instructions">
+          <li>Inicie o backend: <code>cd backend &amp;&amp; npm start</code></li>
+          <li>Configure a URL do WebSocket acima</li>
+          <li>Acesse <code>chrome://extensions</code> e ative o Modo Desenvolvedor</li>
+          <li>Clique em "Carregar sem compactacao" e selecione a pasta do projeto</li>
+          <li>Abra o Google Meet — a sidebar aparecera automaticamente</li>
+        </ol>
+      </div>
+    </div>
+  </section>
+</main>
 
-  <script src="app.js"></script>
+<div id="toast-container"></div>
+<script src="app.js"></script>
 </body>
 </html>
