@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AI Sales Coach - Painel de Treinamento</title>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+
+  <!-- SIDEBAR NAV -->
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <span class="logo-icon">&#x1F916;</span>
+      <span class="logo-text">AI Sales Coach</span>
+    </div>
+    <nav class="sidebar-nav">
+      <a href="#" class="nav-item active" data-tab="dashboard">
+        <span class="nav-icon">&#x1F4CA;</span> Dashboard
+      </a>
+      <a href="#" class="nav-item" data-tab="scripts">
+        <span class="nav-icon">&#x1F4CB;</span> Scripts de Vendas
+      </a>
+      <a href="#" class="nav-item" data-tab="calls">
+        <span class="nav-icon">&#x1F3A7;</span> Calls de Sucesso
+      </a>
+      <a href="#" class="nav-item" data-tab="knowledge">
+        <span class="nav-icon">&#x1F9E0;</span> Base de Conhecimento
+      </a>
+      <a href="#" class="nav-item" data-tab="settings">
+        <span class="nav-icon">&#x2699;&#xFE0F;</span> Configuracoes
+      </a>
+    </nav>
+    <div class="sidebar-status" id="server-status">
+      <span class="status-dot status-dot--offline"></span>
+      <span>Backend offline</span>
+    </div>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main class="main">
+
+    <!-- HEADER -->
+    <header class="top-bar">
+      <h1 class="page-title" id="page-title">Dashboard</h1>
+      <div class="top-bar-actions">
+        <button class="btn btn-outline" id="refresh-btn">&#x21BB; Atualizar</button>
+      </div>
+    </header>
+
+    <!-- TAB: DASHBOARD -->
+    <section class="tab-content active" id="tab-dashboard">
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-icon">&#x1F4CB;</div>
+          <div class="stat-info">
+            <div class="stat-value" id="stat-scripts">0</div>
+            <div class="stat-label">Scripts Carregados</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">&#x1F3A7;</div>
+          <div class="stat-info">
+            <div class="stat-value" id="stat-calls">0</div>
+            <div class="stat-label">Calls de Sucesso</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">&#x1F9E0;</div>
+          <div class="stat-info">
+            <div class="stat-value" id="stat-knowledge">-</div>
+            <div class="stat-label">Base de Conhecimento</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">&#x1F4F6;</div>
+          <div class="stat-info">
+            <div class="stat-value" id="stat-sessions">0</div>
+            <div class="stat-label">Sessoes Ativas</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <h2>&#x1F9E0; Resumo do Conhecimento Atual</h2>
+          <button class="btn btn-sm btn-primary" id="rebuild-btn">&#x1F504; Reprocessar</button>
+        </div>
+        <div class="card-body">
+          <div class="knowledge-summary" id="knowledge-summary">
+            Nenhum conhecimento carregado ainda. Adicione scripts de vendas e calls de sucesso para comecar.
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header"><h2>&#x1F680; Como Comecar</h2></div>
+        <div class="card-body">
+          <div class="steps">
+            <div class="step">
+              <div class="step-num">1</div>
+              <div class="step-text">
+                <strong>Adicione scripts de vendas</strong> — seus roteiros, playbooks e metodologias de vendas
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-num">2</div>
+              <div class="step-text">
+                <strong>Adicione calls de sucesso</strong> — gravacoes ou transcricoes de calls que geraram vendas
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-num">3</div>
+              <div class="step-text">
+                <strong>A IA aprende</strong> — o sistema processa o material e cria uma base de conhecimento
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-num">4</div>
+              <div class="step-text">
+                <strong>Use no Google Meet</strong> — abra uma reuniao e a extensao sugerira acoes em tempo real
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB: SCRIPTS -->
+    <section class="tab-content" id="tab-scripts">
+      <div class="card">
+        <div class="card-header">
+          <h2>&#x2795; Adicionar Script de Vendas</h2>
+        </div>
+        <div class="card-body">
+          <form id="script-form" class="upload-form">
+            <div class="form-group">
+              <label>Titulo do Script *</label>
+              <input type="text" id="script-title" placeholder="Ex: Script SPIN Selling Q1 2026" required/>
+            </div>
+            <div class="form-group">
+              <label>Descricao</label>
+              <input type="text" id="script-desc" placeholder="Ex: Metodologia SPIN para enterprise"/>
+            </div>
+            <div class="form-group">
+              <label>Conteudo do Script *</label>
+              <textarea id="script-content" rows="10" placeholder="Cole aqui o conteudo do seu script de vendas, playbook, objecoes comuns, respostas ideais, etc..." required></textarea>
+            </div>
+            <div class="form-group">
+              <label>Ou carregue um arquivo (TXT)</label>
+              <div class="file-drop" id="script-file-drop">
+                <span>&#x1F4C4; Arraste um arquivo .txt ou clique para selecionar</span>
+                <input type="file" id="script-file" accept=".txt,.md" hidden/>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary btn-lg">&#x1F4BE; Salvar Script</button>
+          </form>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header"><h2>&#x1F4CB; Scripts Cadastrados</h2></div>
+        <div class="card-body">
+          <div class="items-list" id="scripts-list">
+            <div class="empty-state">Nenhum script cadastrado ainda.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB: CALLS -->
+    <section class="tab-content" id="tab-calls">
+      <div class="card">
+        <div class="card-header">
+          <h2>&#x2795; Adicionar Call de Sucesso</h2>
+        </div>
+        <div class="card-body">
+          <form id="call-form" class="upload-form">
+            <div class="form-group">
+              <label>Titulo da Call *</label>
+              <input type="text" id="call-title" placeholder="Ex: Fechamento com Empresa XYZ - Jan 2026" required/>
+            </div>
+            <div class="form-group">
+              <label>Resultado</label>
+              <select id="call-outcome">
+                <option value="venda">&#x2705; Venda Fechada</option>
+                <option value="follow-up">&#x1F4C5; Follow-up Agendado</option>
+                <option value="perdida">&#x274C; Venda Perdida (aprender com erros)</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Notas / Observacoes</label>
+              <input type="text" id="call-notes" placeholder="Ex: Cliente tinha budget aprovado, tomador de decisao presente"/>
+            </div>
+            <div class="form-group">
+              <label>Transcricao da Call *</label>
+              <textarea id="call-content" rows="12" placeholder="Cole aqui a transcricao da call (pode ser do Fireflies, Otter.ai, ou qualquer ferramenta de transcricao)..." required></textarea>
+            </div>
+            <div class="form-group">
+              <label>Ou carregue um arquivo de audio (MP3, WAV, M4A) — sera transcrito automaticamente</label>
+              <div class="file-drop" id="call-file-drop">
+                <span>&#x1F3A7; Arraste um arquivo de audio ou .txt</span>
+                <input type="file" id="call-file" accept=".txt,.mp3,.wav,.m4a,.ogg" hidden/>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary btn-lg">&#x1F4BE; Salvar Call</button>
+          </form>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header"><h2>&#x1F3A7; Calls Cadastradas</h2></div>
+        <div class="card-body">
+          <div class="items-list" id="calls-list">
+            <div class="empty-state">Nenhuma call cadastrada ainda.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB: KNOWLEDGE -->
+    <section class="tab-content" id="tab-knowledge">
+      <div class="card">
+        <div class="card-header">
+          <h2>&#x1F9E0; Base de Conhecimento da IA</h2>
+          <button class="btn btn-sm btn-primary" id="rebuild-btn-2">&#x1F504; Reprocessar Tudo</button>
+        </div>
+        <div class="card-body">
+          <p class="text-muted">Este e o resumo que a IA usa durante as calls ao vivo para gerar sugestoes.</p>
+          <div class="knowledge-summary large" id="knowledge-summary-2">Carregando...</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB: SETTINGS -->
+    <section class="tab-content" id="tab-settings">
+      <div class="card">
+        <div class="card-header"><h2>&#x2699;&#xFE0F; Configuracoes do Backend</h2></div>
+        <div class="card-body">
+          <div class="form-group">
+            <label>URL do Backend</label>
+            <input type="text" id="backend-url" value="http://localhost:3001" placeholder="http://localhost:3001"/>
+            <small class="hint">Endereco do servidor backend. Use ngrok para acesso externo.</small>
+          </div>
+          <div class="form-group">
+            <label>URL do WebSocket</label>
+            <input type="text" id="ws-url" value="ws://localhost:3001" placeholder="ws://localhost:3001"/>
+            <small class="hint">Deve corresponder ao backend URL com ws:// ou wss://</small>
+          </div>
+          <button class="btn btn-primary" id="save-settings-btn">&#x1F4BE; Salvar Configuracoes</button>
+          <button class="btn btn-outline" id="test-connection-btn">&#x1F50C; Testar Conexao</button>
+          <div id="connection-result" class="connection-result"></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header"><h2>&#x1F4F1; Extensao Chrome</h2></div>
+        <div class="card-body">
+          <p>Para conectar a extensao ao backend:</p>
+          <ol class="instructions">
+            <li>Inicie o backend: <code>cd backend && npm install && npm start</code></li>
+            <li>Configure a URL do WebSocket acima</li>
+            <li>Abra o Google Meet — a extensao se conectara automaticamente</li>
+            <li>Clique em "Iniciar Analise" na sidebar</li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- TOAST NOTIFICATIONS -->
+  <div id="toast-container"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
