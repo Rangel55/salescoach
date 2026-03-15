@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Sales Coach - Preview</title>
+  <!--
+    NOTA: Este arquivo e uma referencia visual e para testes isolados.
+    A sidebar real e injetada pelo content.js no DOM do Google Meet.
+    Abra este arquivo no navegador para visualizar o design sem o Meet.
+  -->
+  <link rel="stylesheet" href="sidebar.css" />
+  <style>
+    body {
+      margin: 0;
+      background: #1a1d2e;
+      display: flex;
+      justify-content: flex-end;
+      height: 100vh;
+      overflow: hidden;
+    }
+    #ai-sales-coach-container {
+      position: relative !important;
+      height: 100vh !important;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="ai-sales-coach-container">
+    <div id="ai-sales-coach-sidebar">
+
+      <!-- Cabecalho -->
+      <div class="asc-header">
+        <div class="asc-header-top">
+          <span class="asc-logo">&#x1F916;</span>
+          <h1 class="asc-title">AI Sales Coach</h1>
+          <button class="asc-toggle-btn" id="asc-toggle-btn">&#x2039;</button>
+        </div>
+      </div>
+
+      <!-- Status -->
+      <div class="asc-section">
+        <div class="asc-status-card asc-status-card--analyzing" id="asc-status-card">
+          <span class="asc-status-dot asc-status-dot--analyzing" id="asc-status-dot"></span>
+          <span class="asc-status-text" id="asc-status-text">Analisando conversa...</span>
+        </div>
+      </div>
+
+      <!-- Sugestoes -->
+      <div class="asc-section asc-section-suggestions">
+        <div class="asc-section-header">
+          <span class="asc-section-icon">&#x1F4A1;</span>
+          <h2 class="asc-section-title">Sugestoes ao Vivo</h2>
+        </div>
+        <ul class="asc-suggestions-list" id="asc-suggestions-list">
+          <li class="asc-suggestion-item">
+            <span class="asc-suggestion-bullet">></span>
+            <span class="asc-suggestion-text">Pergunte ao cliente qual solucao ele usa hoje</span>
+          </li>
+          <li class="asc-suggestion-item">
+            <span class="asc-suggestion-bullet">></span>
+            <span class="asc-suggestion-text">Confirme qual e o principal problema</span>
+          </li>
+          <li class="asc-suggestion-item">
+            <span class="asc-suggestion-bullet">></span>
+            <span class="asc-suggestion-text">Explore o nivel de urgencia do problema</span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Botao -->
+      <div class="asc-footer">
+        <button class="asc-btn asc-btn-primary" id="asc-start-btn">
+          &#x25B6; Iniciar Analise
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="sidebar.js"></script>
+</body>
+</html>
