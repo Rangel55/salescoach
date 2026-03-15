@@ -1,0 +1,28 @@
+{
+  "manifest_version": 3,
+  "name": "AI Sales Coach",
+  "version": "1.0.0",
+  "description": "Painel de coaching com IA em tempo real para vendedores no Google Meet.",
+  "permissions": [
+    "activeTab",
+    "scripting",
+    "storage"
+  ],
+  "host_permissions": [
+    "https://meet.google.com/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://meet.google.com/*"],
+      "js": ["content.js"],
+      "css": ["sidebar.css"],
+      "run_at": "document_idle"
+    }
+  ],
+  "action": {
+    "default_title": "AI Sales Coach"
+  }
+}
