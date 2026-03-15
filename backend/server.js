@@ -2,7 +2,7 @@
 // Servidor principal do AI Sales Coach
 // Express REST API + WebSocket Server + OpenAI Integration
 // Responsavel por: receber transcricoes, processar com IA e enviar sugestoes em tempo real
-
+require('dotenv').config();
 const express = require('express');
 const http = require('http');
 const WebSocket = require('ws');
