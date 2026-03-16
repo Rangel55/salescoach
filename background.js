@@ -1,4 +1,4 @@
-// background.js - Service Worker da extensao AI Sales Coach (Manifest V3)
+—// background.js - Service Worker da extensao AI Sales Coach (Manifest V3)
 // Gerencia WebSocket com o backend, estado global e relay de mensagens para content.js
 
 // ── Constantes ─────────────────────────────────────────────────────────────
