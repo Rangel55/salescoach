@@ -408,3 +408,5 @@ app.get('*', (req, res) => {
           if (!req.path.startsWith('/api')) res.sendFile(path.join(__dirname, '..', 'frontend', 'index.html'));
 });
 server.listen(PORT, () => console.log('Server running on port ' + PORT));
+
+// deploy: nova API key 1773699753361
