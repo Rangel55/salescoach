@@ -329,7 +329,7 @@ wss.on('connection', async (ws, req) => {
                                              session.fullTranscript += ' ' + text;
                                              session.speechCount++;
                                              const now = Date.now();
-                                             if (session.speechCount >= 6 && (now - session.lastInsightAt) >= session.minIntervalMs && !session.pendingAnalysis) {
+                                             if (session.speechCount >= 10 && session.fullTranscript.trim().length > 200 && (now - session.lastInsightAt) >= session.minIntervalMs && !session.pendingAnalysis) {
                                                                session.pendingAnalysis = true;
                                                                session.lastInsightAt = now;
                                                                session.speechCount = 0;
@@ -345,7 +345,12 @@ wss.on('connection', async (ws, req) => {
                                              break;
                              }
                              case 'REQUEST_SUGGESTION': {
-                                             if (!session.pendingAnalysis && session.fullTranscript.length > 50) {
+                                             if (!session.pendingAnalysis) {
+                                               if (session.fullTranscript.trim().length < 200) {
+                                                 ws.send(JSON.stringify({ type: 'STATUS', message: 'Aguardando mais conteudo da call para analisar...' }));
+                                                 break;
+                                               }
+                                               {
                                                                session.pendingAnalysis = true;
                                                                analyzeTranscript(session, true).then(insight => {
                                                                                    session.pendingAnalysis = false;
