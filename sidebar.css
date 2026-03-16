@@ -248,3 +248,184 @@
 .asc-btn-danger  { background: var(--asc-accent-danger) !important; color: #fff !important; }
 .asc-btn-danger:hover  { background: #dc2626 !important; transform: translateY(-1px); }
 .asc-btn:active  { transform: translateY(0) !important; }
+
+
+/* ── Botao outline (Pedir Insight) ──────────────────────────────────────── */
+.asc-btn-outline {
+     background: transparent !important;
+     color: var(--asc-accent-primary) !important;
+     border: 1px solid var(--asc-accent-primary) !important;
+     margin-top: 8px !important;
+}
+.asc-btn-outline:hover {
+     background: rgba(79,142,247,0.1) !important;
+     transform: translateY(-1px);
+}
+
+/* ── Card de Insight em destaque ────────────────────────────────────────── */
+.asc-insight-card {
+     background: var(--asc-bg-card);
+     border: 1px solid var(--asc-accent-primary);
+     border-radius: var(--asc-radius);
+     padding: 14px;
+     position: relative;
+     overflow: hidden;
+}
+.asc-insight-card::before {
+     content: '';
+     position: absolute;
+     top: 0; left: 0; right: 0;
+     height: 3px;
+     background: linear-gradient(90deg, var(--asc-accent-primary), #a855f7);
+}
+.asc-insight-card.asc-insight-new {
+     animation: asc-flash-in 0.4s ease-out;
+}
+@keyframes asc-flash-in {
+     from { box-shadow: 0 0 0 3px rgba(79,142,247,0.5); opacity: 0.7; }
+     to   { box-shadow: 0 0 0 0 transparent; opacity: 1; }
+}
+.asc-insight-header {
+     display: flex;
+     gap: 6px;
+     margin-bottom: 10px;
+     flex-wrap: wrap;
+}
+.asc-insight-text {
+     font-size: 14px !important;
+     color: var(--asc-text-primary) !important;
+     font-weight: 600 !important;
+     line-height: 1.5 !important;
+     margin: 0 0 6px !important;
+     padding: 0 !important;
+}
+.asc-insight-motivo {
+     font-size: 12px !important;
+     color: var(--asc-text-secondary) !important;
+     line-height: 1.5 !important;
+     margin: 0 !important;
+     padding: 0 !important;
+}
+
+/* ── Badges ─────────────────────────────────────────────────────────────── */
+.asc-badge {
+     display: inline-block;
+     font-size: 10px !important;
+     font-weight: 700 !important;
+     text-transform: uppercase;
+     letter-spacing: 0.6px;
+     padding: 2px 8px !important;
+     border-radius: 20px !important;
+     background: var(--asc-bg-hover);
+     color: var(--asc-text-secondary) !important;
+     border: 1px solid var(--asc-border);
+}
+.asc-badge--alerta { border: 1px solid transparent; }
+.asc-badge--perigo {
+     background: rgba(239,68,68,0.15) !important;
+     color: var(--asc-accent-danger) !important;
+     border-color: rgba(239,68,68,0.3) !important;
+}
+.asc-badge--oportunidade {
+     background: rgba(34,197,94,0.15) !important;
+     color: var(--asc-accent-success) !important;
+     border-color: rgba(34,197,94,0.3) !important;
+}
+.asc-badge--neutro {
+     background: rgba(245,158,11,0.12) !important;
+     color: var(--asc-accent-warning) !important;
+     border-color: rgba(245,158,11,0.3) !important;
+}
+
+/* ── Caixa de pergunta sugerida ─────────────────────────────────────────── */
+.asc-pergunta-box {
+     margin-top: 10px;
+     background: rgba(79,142,247,0.06);
+     border: 1px dashed rgba(79,142,247,0.4);
+     border-radius: var(--asc-radius-sm);
+     padding: 10px 12px;
+}
+.asc-pergunta-label {
+     font-size: 10px !important;
+     font-weight: 700 !important;
+     text-transform: uppercase;
+     letter-spacing: 0.6px;
+     color: var(--asc-accent-primary) !important;
+     display: block;
+     margin-bottom: 5px;
+}
+.asc-pergunta-text {
+     font-size: 13px !important;
+     color: var(--asc-text-primary) !important;
+     font-style: italic !important;
+     line-height: 1.5 !important;
+     margin: 0 0 8px !important;
+     padding: 0 !important;
+}
+.asc-btn-copy {
+     background: transparent !important;
+     border: 1px solid var(--asc-border) !important;
+     color: var(--asc-text-secondary) !important;
+     font-size: 11px !important;
+     padding: 4px 10px !important;
+     border-radius: var(--asc-radius-sm) !important;
+     cursor: pointer !important;
+     transition: var(--asc-transition) !important;
+     font-family: var(--asc-font) !important;
+}
+.asc-btn-copy:hover {
+     background: var(--asc-bg-hover) !important;
+     border-color: var(--asc-accent-primary) !important;
+     color: var(--asc-text-primary) !important;
+}
+
+/* ── Contador de insights ────────────────────────────────────────────────── */
+.asc-count-badge {
+     margin-left: auto;
+     background: var(--asc-accent-primary);
+     color: #fff;
+     font-size: 10px !important;
+     font-weight: 700 !important;
+     padding: 1px 7px !important;
+     border-radius: 20px !important;
+     min-width: 20px;
+     text-align: center;
+}
+
+/* ── Historico de insights (cores por alerta) ───────────────────────────── */
+.asc-hist--perigo {
+     border-left: 3px solid var(--asc-accent-danger) !important;
+}
+.asc-hist--oportunidade {
+     border-left: 3px solid var(--asc-accent-success) !important;
+}
+.asc-hist--neutro {
+     border-left: 3px solid var(--asc-accent-warning) !important;
+}
+.asc-hist-badge {
+     font-size: 10px !important;
+     font-weight: 700 !important;
+     text-transform: uppercase;
+     color: var(--asc-text-muted) !important;
+     flex-shrink: 0;
+     padding-top: 2px;
+     letter-spacing: 0.5px;
+     min-width: 60px;
+}
+
+/* ── Status connecting ──────────────────────────────────────────────────── */
+.asc-status-dot--connecting {
+     background: var(--asc-accent-primary) !important;
+     animation: asc-pulse 0.8s ease-in-out infinite;
+}
+.asc-status-card--connecting {
+     border-color: var(--asc-accent-primary) !important;
+     background: rgba(79,142,247,0.06) !important;
+}
+.asc-status-dot--error {
+     background: var(--asc-accent-danger) !important;
+}
+.asc-status-card--error {
+     border-color: var(--asc-accent-danger) !important;
+     background: rgba(239,68,68,0.06) !important;
+}
