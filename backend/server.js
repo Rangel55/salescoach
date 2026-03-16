@@ -22,12 +22,12 @@ const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
 // ── Storage uploads ────────────────────────────────────────────────────────
 const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    const dir = file.fieldname === 'script' ? './data/scripts' : './data/calls';
-    fs.mkdirSync(dir, { recursive: true });
-    cb(null, dir);
-  },
-  filename: (req, file, cb) => { cb(null, Date.now() + '-' + file.originalname); }
+    destination: (req, file, cb) => {
+          const dir = file.fieldname === 'script' ? './data/scripts' : './data/calls';
+          fs.mkdirSync(dir, { recursive: true });
+          cb(null, dir);
+    },
+    filename: (req, file, cb) => { cb(null, Date.now() + '-' + file.originalname); }
 });
 const upload = multer({ storage, limits: { fileSize: 50 * 1024 * 1024 } });
 
@@ -35,7 +35,7 @@ const upload = multer({ storage, limits: { fileSize: 50 * 1024 * 1024 } });
 // ── Middlewares ────────────────────────────────────────────────────────────
 app.use(cors({ origin: '*' }));
 app.use(express.json({ limit: '10mb' }));
-app.use(express.static(path.join(process.cwd(), 'frontend')));
+app.use(express.static(path.join(__dirname, '..', 'frontend')));
 
 
 // ── Auth helpers ───────────────────────────────────────────────────────────
