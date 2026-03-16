@@ -1,28 +1,52 @@
 {
-  "manifest_version": 3,
-  "name": "AI Sales Coach",
-  "version": "1.0.0",
-  "description": "Painel de coaching com IA em tempo real para vendedores no Google Meet.",
-  "permissions": [
-    "activeTab",
-    "scripting",
-    "storage"
-  ],
-  "host_permissions": [
-    "https://meet.google.com/*"
-  ],
-  "background": {
-    "service_worker": "background.js"
-  },
-  "content_scripts": [
-    {
-      "matches": ["https://meet.google.com/*"],
-      "js": ["content.js"],
-      "css": ["sidebar.css"],
-      "run_at": "document_idle"
+    "manifest_version": 3,
+    "name": "AI Sales Coach",
+    "version": "1.1.0",
+    "description": "Coaching de vendas com IA em tempo real durante calls no Google Meet.",
+
+    "permissions": [
+          "activeTab",
+          "scripting",
+          "storage",
+          "tabs",
+          "clipboardWrite"
+    ],
+
+    "host_permissions": [
+          "https://meet.google.com/*",
+          "https://salescoach-production.up.railway.app/*",
+          "wss://salescoach-production.up.railway.app/*",
+          "http://localhost:3001/*",
+          "ws://localhost:3001/*"
+    ],
+
+    "background": {
+          "service_worker": "background.js",
+          "type": "module"
+    },
+
+    "content_scripts": [
+          {
+                  "matches": ["https://meet.google.com/*"],
+                  "js": ["content.js"],
+                  "css": ["sidebar.css"],
+                  "run_at": "document_idle"
+          }
+    ],
+
+    "web_accessible_resources": [
+          {
+                  "resources": ["sidebar.css", "sidebar.html"],
+                  "matches": ["https://meet.google.com/*"]
+          }
+    ],
+
+    "action": {
+          "default_title": "AI Sales Coach",
+          "default_popup": "sidebar.html"
+    },
+
+    "content_security_policy": {
+          "extension_pages": "script-src 'self'; object-src 'self'"
     }
-  ],
-  "action": {
-    "default_title": "AI Sales Coach"
-  }
 }
