@@ -350,21 +350,23 @@ wss.on('connection', async (ws, req) => {
                                                  ws.send(JSON.stringify({ type: 'STATUS', message: 'Aguardando mais conteudo da call para analisar...' }));
                                                  break;
                                                }
-                                               {
-                                                               session.pendingAnalysis = true;
-                                                               analyzeTranscript(session, true).then(insight => {
-                                                                                   session.pendingAnalysis = false;
-                                                                                   if (!insight || insight.skip) {
-                                                                                                         ws.send(JSON.stringify({ type: 'STATUS', message: 'Call fluindo bem. Nenhuma acao critica no momento.' }));
-                                                                                           } else {
-                                                                                                         session.insightsEntregues.push(insight.insight);
-                                                                                                         ws.send(JSON.stringify({ type: 'INSIGHT', ...insight }));
-                                                                                           }
-                                                               }).catch(err => { session.pendingAnalysis = false; });
+                                               session.pendingAnalysis = true;
+                                               analyzeTranscript(session, true).then(insight => {
+                                                 session.pendingAnalysis = false;
+                                                 if (!insight || insight.skip) {
+                                                   ws.send(JSON.stringify({ type: 'STATUS', message: 'Call fluindo bem. Nenhuma acao critica no momento.' }));
+                                                 } else {
+                                                   session.insightsEntregues.push(insight.insight);
+                                                   ws.send(JSON.stringify({ type: 'INSIGHT', ...insight }));
+                                                 }
+                                               }).catch(err => {
+                                                 session.pendingAnalysis = false;
+                                               });
+                                               break;
                                              }
-                                             break;
-                             }
-                             case 'END_SESSION':
+                  break;
+                }
+                case 'END_SESSION':
                                              sessions.delete(sessionId);
                                              break;
                      }
