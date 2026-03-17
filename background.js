@@ -2,7 +2,7 @@
 // Gerencia WebSocket com o backend, estado global e relay de mensagens para content.js
 
 // ── Constantes ─────────────────────────────────────────────────────────────
-const DEFAULT_WS_URL = 'wss://salescoach-production.up.railway.app';
+const DEFAULT_WS_URL = 'wss://salescoach.com.br';
 const RECONNECT_DELAY_MS = 5000;
 const MAX_RECONNECT_ATTEMPTS = 10;
 
